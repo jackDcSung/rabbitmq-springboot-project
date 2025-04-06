@@ -1,17 +1,12 @@
-spring:
-  rabbitmq:
-    host: 192.168.6.100 # 你的虚拟机IP
-    port: 5672 # 端口
-    virtual-host: /hmall # 虚拟主机
-    username: hmall # 用户名
-    password: 123 # 密码
-
-
-
-
-
-
-
 logging:
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
+
+spring:
+  rabbitmq:
+    host: 192.168.6.100 # 你的虛擬機IP
+    port: 5672 # 端口
+    virtual-host: /hmall # 虛擬主機
+    username: hmall # 用戶名
+    password: 123 # 密碼
+

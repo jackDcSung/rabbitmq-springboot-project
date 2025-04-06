@@ -66,13 +66,13 @@ public class SpringAmqpTest {
     }
 
     @Test
-    public void testSendTopicExchange() {
+    public void testSendTopic() {
         // 交換機名稱
         String exchangeName = "hmall.topic";
         // 消息
-        String message = "今天天氣好!";
+        String msg = "藍色通知，警報解除，可斯拉是放的氣球";
         // 發送消息
-        rabbitTemplate.convertAndSend(exchangeName, "china.weather", message);
+        rabbitTemplate.convertAndSend(exchangeName, "china.weather", msg);
     }
 
 }

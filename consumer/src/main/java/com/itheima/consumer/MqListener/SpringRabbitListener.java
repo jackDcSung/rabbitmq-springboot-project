@@ -1,6 +1,10 @@
 package com.itheima.consumer.MqListener;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -41,15 +45,35 @@ public class SpringRabbitListener {
         System.out.println("消費者2接收到Fanout消息：【" + msg + "】");
     }
 
-    @RabbitListener(queues = "direct.queue1")
-    public void listenDirectQueue1(String msg) {
-        System.out.println("消費者1接收到direct.queue1的消息：【" + msg + "】");
+//    @RabbitListener(queues = "direct.queue1")
+//    public void listenDirectQueue1(String msg) {
+//        System.out.println("消費者1接收到direct.queue1的消息：【" + msg + "】");
+//    }
+//
+//    @RabbitListener(queues = "direct.queue2")
+//    public void listenDirectQueue2(String msg) {
+//        System.out.println("消費者2接收到direct.queue2的消息：【" + msg + "】");
+//    }
+
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "direct.queue1", durable = "true"),
+            exchange = @Exchange(name = "hmall.direct", type = ExchangeTypes.DIRECT),
+            key = {"red", "blue"}
+    ))
+    public void listenDirectQueue1(String msg) throws InterruptedException {
+        System.out.println("消費者1 收到了 direct.queue1的消息: [" + msg +"] ");
     }
 
-    @RabbitListener(queues = "direct.queue2")
-    public void listenDirectQueue2(String msg) {
-        System.out.println("消費者2接收到direct.queue2的消息：【" + msg + "】");
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "direct.queue2", durable = "true"),
+            exchange = @Exchange(name = "hmall.direct", type = ExchangeTypes.DIRECT),
+            key = {"red", "yellow"}
+    ))
+    public void listenDirectQueue2(String msg) throws InterruptedException {
+        System.out.println("消費者2 收到了 direct.queue2的消息: [" + msg +"] ");
     }
+
 
 
     @RabbitListener(queues = "topic.queue1")

@@ -74,7 +74,7 @@ public class SpringRabbitListener {
         System.out.println("消費者2 收到了 direct.queue2的消息: [" + msg +"] ");
     }
 
-
+    
 
     @RabbitListener(queues = "topic.queue1")
     public void listenTopicQueue1(String msg){
